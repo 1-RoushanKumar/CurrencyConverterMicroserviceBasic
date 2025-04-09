@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 // Declare this interface as a Feign Client
 // 'name' can be used for service discovery taken from the application.properties of currency exchange service.
 // 'url' is the base URL for the external service.
-@FeignClient(name = "currency-exchange-service", url = "localhost:8000")
+//@FeignClient(name = "currency-exchange-service", url = "localhost:8000")
+@FeignClient(name = "currency-exchange-service")
 public interface CurrencyExchangeProxy {
 
     // Define the REST endpoint this client should call
