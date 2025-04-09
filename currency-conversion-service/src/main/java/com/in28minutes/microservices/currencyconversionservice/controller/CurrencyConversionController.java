@@ -1,6 +1,8 @@
 package com.in28minutes.microservices.currencyconversionservice.controller;
 
 import com.in28minutes.microservices.currencyconversionservice.bean.CurrencyConversion;
+import com.in28minutes.microservices.currencyconversionservice.bean.CurrencyExchangeProxy;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +52,34 @@ public class CurrencyConversionController {
                 quantity.multiply(currencyConversion.getConversionMultiple()), // Total calculated amount (e.g., 100 * 82.5 = 8250)
                 currencyConversion.getEnvironment()                  // Info about the environment (like port or instance)
         );
-
     }
+
+    // Injecting the Feign Client (interface that talks to currency-exchange service)
+    @Autowired
+    private CurrencyExchangeProxy proxy;
+
+    @GetMapping("/currency-conversion-feign/from/{from}/to/{to}/quantity/{quantity}")
+    public CurrencyConversion calculateCurrencyConversionFeign(
+            @PathVariable String from,
+            @PathVariable String to,
+            @PathVariable BigDecimal quantity
+    ) {
+        // Step 1: Call the external microservice using Feign client method
+        // - This automatically makes a GET call to:
+        //   /currency-exchange/from/{from}/to/{to}
+        // - The Feign interface handles building the URL and parsing the response.
+        CurrencyConversion currencyConversion = proxy.retrieveExchangeValue(from, to);
+
+        // Step 2: Construct a response object for the currency-conversion API
+        // - Calculate total amount = quantity * conversionMultiple
+        // - Append "feign" to the environment field to identify the method used
+        return new CurrencyConversion(
+                currencyConversion.getId(),                             // ID of the transaction
+                from, to, quantity,                                     // Currency details
+                currencyConversion.getConversionMultiple(),             // Exchange rate
+                quantity.multiply(currencyConversion.getConversionMultiple()), // Total amount
+                currencyConversion.getEnvironment() + " feign"          // Add 'feign' to track origin
+        );
+    }
+
 }
