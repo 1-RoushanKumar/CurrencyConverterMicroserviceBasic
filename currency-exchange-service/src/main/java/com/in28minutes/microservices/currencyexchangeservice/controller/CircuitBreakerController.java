@@ -1,5 +1,6 @@
 package com.in28minutes.microservices.currencyexchangeservice.controller;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,10 +16,8 @@ public class CircuitBreakerController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @GetMapping("/sample-api")
-    @Retry(name = "sample-api", fallbackMethod = "hardcodedResponse")
-// When a GET request is made to /sample-api, the method will be retried upon failure
-// 'sample-api' refers to configuration in application.properties (ex : by default it will make three retry we can configure it in application .properties.)
-// fallbackMethod = "hardcodedResponse" means this method is called if all retries fail
+//    @Retry(name = "sample-api", fallbackMethod = "hardcodedResponse")
+    @CircuitBreaker(name = "default", fallbackMethod = "hardcodedResponse")
     public String sampleApi() {
         logger.info("Sample api call received");
 
