@@ -1,0 +1,5 @@
+### GET request to example server
+GET http://localhost:8765/CURRENCY-EXCHANGE-SERVICE/currency-exchange/from/USD/to/INR
+
+###
+GET http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/INR

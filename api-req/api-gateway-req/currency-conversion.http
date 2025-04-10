@@ -1,0 +1,11 @@
+### GET request to example server
+GET http://localhost:8765/CURRENCY-CONVERSION-SERVICE/currency-conversion/from/USD/to/INR/quantity/10
+
+###
+GET http://localhost:8765/CURRENCY-CONVERSION-SERVICE/currency-conversion-feign/from/USD/to/INR/quantity/10
+
+###
+GET http://localhost:8765/currency-conversion-service/currency-conversion/from/USD/to/INR/quantity/10
+
+###
+GET http://localhost:8765/currency-conversion-service/currency-conversion-feign/from/USD/to/INR/quantity/10
