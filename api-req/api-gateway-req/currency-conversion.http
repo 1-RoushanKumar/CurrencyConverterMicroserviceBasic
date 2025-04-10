@@ -9,3 +9,14 @@ GET http://localhost:8765/currency-conversion-service/currency-conversion/from/U
 
 ###
 GET http://localhost:8765/currency-conversion-service/currency-conversion-feign/from/USD/to/INR/quantity/10
+
+
+### After Creating the ApiGatewayConfiguration where i added the path of this and loadbalance for this.
+###
+GET http://localhost:8765/currency-conversion/from/USD/to/INR/quantity/10
+
+###
+GET http://localhost:8765/currency-conversion-feign/from/USD/to/INR/quantity/10
+
+###
+GET http://localhost:8765/currency-conversion-new/from/USD/to/INR/quantity/10

@@ -3,3 +3,7 @@ GET http://localhost:8765/CURRENCY-EXCHANGE-SERVICE/currency-exchange/from/USD/t
 
 ###
 GET http://localhost:8765/currency-exchange-service/currency-exchange/from/USD/to/INR
+
+
+### After Creating the ApiGatewayConfiguration where i added the path of this and loadbalance for this.
+GET http://localhost:8765/currency-exchange/from/USD/to/INR
