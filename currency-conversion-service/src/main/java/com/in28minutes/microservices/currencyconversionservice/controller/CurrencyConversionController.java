@@ -15,6 +15,9 @@ import java.util.HashMap;
 @RestController
 public class CurrencyConversionController {
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     @GetMapping("/currency-conversion/from/{from}/to/{to}/quantity/{quantity}")
     public CurrencyConversion calculateCurrencyConversion(
             @PathVariable String from,
@@ -30,7 +33,7 @@ public class CurrencyConversionController {
 // Step 2: Make a REST API call to the Currency Exchange Microservice
 // - Using RestTemplate's getForEntity() method
 // - URL contains placeholders for 'from' and 'to', which will be replaced with actual values from uriVariables
-        ResponseEntity<CurrencyConversion> responseEntity = new RestTemplate().getForEntity(
+        ResponseEntity<CurrencyConversion> responseEntity = restTemplate.getForEntity(
                 "http://localhost:8000/currency-exchange/from/{from}/to/{to}", // Target endpoint
                 CurrencyConversion.class,                                      // Expected response type
                 uriVariables                                                   // Path variable values to be substituted
