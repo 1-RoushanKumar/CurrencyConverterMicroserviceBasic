@@ -1,0 +1,11 @@
+services:
+  currency-exchange:
+    image: roushan19/micro_v1-currency-exchange-service:0.0.1-SNAPSHOT
+    ports:
+      - "8000:8000"
+    mem_limit: 700m
+    networks:
+      - currency-network
+
+networks:
+  currency-network:
